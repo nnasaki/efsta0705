@@ -1,0 +1,226 @@
+/* Modern Tetris Game Styling */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+}
+
+.game-container {
+    text-align: center;
+    background: rgba(0, 0, 0, 0.8);
+    border-radius: 20px;
+    padding: 20px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+}
+
+h1 {
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    background: linear-gradient(45deg, #ff6b6b, #4ecdc4, #45b7d1);
+    background-size: 200% 200%;
+    animation: gradient 3s ease infinite;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+@keyframes gradient {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+.game-area {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    align-items: flex-start;
+    flex-wrap: wrap;
+}
+
+.game-info {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    background: rgba(255, 255, 255, 0.1);
+    padding: 20px;
+    border-radius: 10px;
+    backdrop-filter: blur(10px);
+}
+
+.score-panel, .level-panel, .lines-panel, .next-panel {
+    background: rgba(255, 255, 255, 0.05);
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.score-panel h3, .level-panel h3, .lines-panel h3, .next-panel h3 {
+    font-size: 1.1rem;
+    margin-bottom: 5px;
+    color: #4ecdc4;
+}
+
+#score, #level, #lines {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: #fff;
+}
+
+.game-board {
+    position: relative;
+    background: rgba(0, 0, 0, 0.6);
+    border-radius: 10px;
+    padding: 10px;
+    border: 3px solid #4ecdc4;
+}
+
+#game-canvas {
+    border: 2px solid #333;
+    border-radius: 5px;
+    background: #000;
+    image-rendering: pixelated;
+}
+
+#next-canvas {
+    border: 1px solid #333;
+    background: #000;
+    border-radius: 5px;
+}
+
+.game-over {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(0, 0, 0, 0.95);
+    padding: 30px;
+    border-radius: 15px;
+    text-align: center;
+    border: 2px solid #ff6b6b;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
+}
+
+.game-over h2 {
+    color: #ff6b6b;
+    margin-bottom: 15px;
+    font-size: 2rem;
+}
+
+.game-over p {
+    margin-bottom: 20px;
+    font-size: 1.3rem;
+}
+
+.hidden {
+    display: none;
+}
+
+.controls {
+    margin-top: 20px;
+    background: rgba(255, 255, 255, 0.1);
+    padding: 15px;
+    border-radius: 10px;
+    backdrop-filter: blur(10px);
+}
+
+.controls h3 {
+    margin-bottom: 10px;
+    color: #4ecdc4;
+}
+
+.controls p {
+    margin: 5px 0;
+    font-size: 0.9rem;
+    opacity: 0.8;
+}
+
+.start-button, #restart-btn {
+    background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+    color: white;
+    border: none;
+    padding: 15px 30px;
+    font-size: 1.2rem;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: 20px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.start-button:hover, #restart-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+}
+
+.start-button:active, #restart-btn:active {
+    transform: translateY(0);
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+    .game-area {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .game-info {
+        flex-direction: row;
+        justify-content: space-around;
+        width: 100%;
+    }
+    
+    .next-panel {
+        display: none;
+    }
+    
+    h1 {
+        font-size: 2rem;
+    }
+    
+    #game-canvas {
+        width: 250px;
+        height: 500px;
+    }
+    
+    .controls {
+        font-size: 0.8rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .game-container {
+        padding: 10px;
+        margin: 10px;
+    }
+    
+    h1 {
+        font-size: 1.5rem;
+    }
+    
+    #game-canvas {
+        width: 200px;
+        height: 400px;
+    }
+    
+    .game-info {
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+    
+    .score-panel, .level-panel, .lines-panel {
+        flex: 1;
+        min-width: 80px;
+    }
+}

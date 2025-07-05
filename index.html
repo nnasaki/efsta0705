@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>めちゃくちゃうれるテトリスゲーム</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="game-container">
+        <h1>めちゃくちゃうれるテトリス</h1>
+        
+        <div class="game-area">
+            <div class="game-info">
+                <div class="score-panel">
+                    <h3>スコア</h3>
+                    <div id="score">0</div>
+                </div>
+                
+                <div class="level-panel">
+                    <h3>レベル</h3>
+                    <div id="level">1</div>
+                </div>
+                
+                <div class="lines-panel">
+                    <h3>ライン数</h3>
+                    <div id="lines">0</div>
+                </div>
+                
+                <div class="next-panel">
+                    <h3>ネクスト</h3>
+                    <canvas id="next-canvas" width="80" height="80"></canvas>
+                </div>
+            </div>
+            
+            <div class="game-board">
+                <canvas id="game-canvas" width="300" height="600"></canvas>
+                <div id="game-over" class="game-over hidden">
+                    <h2>ゲームオーバー</h2>
+                    <p>スコア: <span id="final-score">0</span></p>
+                    <button id="restart-btn">もう一度プレイ</button>
+                </div>
+            </div>
+        </div>
+        
+        <div class="controls">
+            <h3>操作方法</h3>
+            <p>← → : 移動</p>
+            <p>↓ : 高速落下</p>
+            <p>↑ : 回転</p>
+            <p>スペース : 一瞬で落とす</p>
+            <p>P : ポーズ</p>
+        </div>
+        
+        <button id="start-btn" class="start-button">ゲーム開始</button>
+    </div>
+    
+    <script src="script.js"></script>
+</body>
+</html>
