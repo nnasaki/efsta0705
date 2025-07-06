@@ -146,6 +146,17 @@ h1 {
     opacity: 0.8;
 }
 
+.desktop-controls {
+    display: block;
+}
+
+.mobile-controls {
+    display: none;
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+}
+
 .start-button, #restart-btn {
     background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
     color: white;
@@ -197,6 +208,14 @@ h1 {
     .controls {
         font-size: 0.8rem;
     }
+    
+    .desktop-controls {
+        display: none;
+    }
+    
+    .mobile-controls {
+        display: block;
+    }
 }
 
 @media (max-width: 480px) {
@@ -237,6 +256,14 @@ h1 {
     .controls {
         margin-top: 15px;
         padding: 10px;
+    }
+    
+    .desktop-controls {
+        display: none;
+    }
+    
+    .mobile-controls {
+        display: block;
     }
     
     .start-button {
