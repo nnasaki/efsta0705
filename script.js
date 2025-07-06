@@ -436,24 +436,64 @@ document.addEventListener('DOMContentLoaded', () => {
     // Add touch controls for mobile
     let touchStartX = 0;
     let touchStartY = 0;
+    let touchStartTime = 0;
+    let lastTapTime = 0;
     
-    document.addEventListener('touchstart', (e) => {
+    // Touch event handling for the game canvas area
+    const gameCanvas = document.getElementById('game-canvas');
+    const gameContainer = document.querySelector('.game-container');
+    
+    // Add touch events to the game container to handle all touch interactions
+    gameContainer.addEventListener('touchstart', (e) => {
         touchStartX = e.touches[0].clientX;
         touchStartY = e.touches[0].clientY;
+        touchStartTime = Date.now();
+        e.preventDefault();
     });
     
-    document.addEventListener('touchend', (e) => {
-        if (!game.gameRunning || game.gameOver) return;
-        
+    gameContainer.addEventListener('touchend', (e) => {
         const touchEndX = e.changedTouches[0].clientX;
         const touchEndY = e.changedTouches[0].clientY;
+        const touchEndTime = Date.now();
         
         const deltaX = touchEndX - touchStartX;
         const deltaY = touchEndY - touchStartY;
+        const deltaTime = touchEndTime - touchStartTime;
+        const distance = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
         
-        const minSwipeDistance = 50;
+        // Check if touch is on start button or restart button
+        const target = document.elementFromPoint(touchEndX, touchEndY);
+        if (target && (target.id === 'start-btn' || target.id === 'restart-btn')) {
+            target.click();
+            e.preventDefault();
+            return;
+        }
         
-        if (Math.abs(deltaX) > Math.abs(deltaY)) {
+        // Only handle game controls if game is running
+        if (!game.gameRunning || game.gameOver) {
+            e.preventDefault();
+            return;
+        }
+        
+        const minSwipeDistance = 30; // Reduced from 50 for better sensitivity
+        const maxTapDistance = 10; // Maximum distance for tap detection
+        const maxTapTime = 300; // Maximum time for tap detection (ms)
+        
+        // Detect tap (short touch with minimal movement)
+        if (distance < maxTapDistance && deltaTime < maxTapTime) {
+            // Check for double tap
+            const currentTime = Date.now();
+            if (currentTime - lastTapTime < 400) {
+                // Double tap detected - hard drop
+                game.hardDrop();
+                lastTapTime = 0; // Reset to prevent triple tap
+            } else {
+                // Single tap - rotate
+                game.rotatePiece();
+                lastTapTime = currentTime;
+            }
+        } else if (Math.abs(deltaX) > Math.abs(deltaY)) {
+            // Horizontal swipe
             if (Math.abs(deltaX) > minSwipeDistance) {
                 if (deltaX > 0) {
                     game.movePiece(1, 0); // Right
@@ -462,6 +502,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             }
         } else {
+            // Vertical swipe
             if (Math.abs(deltaY) > minSwipeDistance) {
                 if (deltaY > 0) {
                     game.movePiece(0, 1); // Down
@@ -471,12 +512,11 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
         
-        // Prevent default touch behavior
         e.preventDefault();
     });
     
-    // Prevent scrolling on touch devices
-    document.addEventListener('touchmove', (e) => {
+    // Prevent scrolling on touch devices but only within game area
+    gameContainer.addEventListener('touchmove', (e) => {
         e.preventDefault();
     }, { passive: false });
 });
